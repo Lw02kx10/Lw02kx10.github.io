@@ -1,2 +1,6 @@
+http://example.com/2023/01/19/Test-Blog/
 http://example.com/2023/01/15/hello-world/
 http://example.com/
+http://example.com/tags/names/
+http://example.com/tags/ages/
+http://example.com/categories/Diary/
