@@ -1,3 +1,5 @@
+http://example.com/tags/index.html
+http://example.com/about/index.html
 http://example.com/2023/01/19/Test-Blog/
 http://example.com/2023/01/15/hello-world/
 http://example.com/
