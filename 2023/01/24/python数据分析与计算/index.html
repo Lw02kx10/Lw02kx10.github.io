@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Wen"><meta name="renderer" content="webkit"><meta name="copyright" content="Wen"><meta name="keywords" content="Wen's blog"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>python数据分析与计算 · Wen's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/cat_favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Wen's blog" type="application/atom+xml">
+</head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/flyCat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Wen</div><div class="profile-signature">Just for coding</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Wen's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">python数据分析与计算</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2023-01-24</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="learn"> learn</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.2k</span> | Reading time: <span class="post-count">5</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h2><p><strong>numpy</strong>生成的数组，是一种应该称为<strong>多维矩阵</strong>。底层使用<strong>c语言</strong>编写，在进行数值运算、线性代数运算时速度很快。</p>
+<blockquote>
+<p>不使用<strong>python</strong>原生的列表是因为其列表中的元素可以是<strong>任意对象</strong>，因此列表中所保存的是对象的指针，这样的话保存3个数值元素就需要3个指针加上3个数值对象，对于数值计算来说，这种结构显然比较浪费内存和CPU的计算时间。</p>
+</blockquote>
+<p>运用一些np数组的属性，可以获得这个np数组的一些信息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#几维矩阵</span></span><br><span class="line"><span class="built_in">print</span>(arr.ndim)</span><br><span class="line"><span class="comment">#形状（以元组形式给出）</span></span><br><span class="line"><span class="built_in">print</span>(arr.shape)</span><br><span class="line"><span class="comment">#总元素个数</span></span><br><span class="line"><span class="built_in">print</span>(arr.size)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="创建数据"><a href="#创建数据" class="headerlink" title="创建数据"></a>创建数据</h3><p>numpy可以使用以下几种常用的方式来创建数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用原生python列表生成</span></span><br><span class="line">np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line"><span class="comment">#[start,end)生成数据，可以使用reshape方法进行shape调整</span></span><br><span class="line">np.arange(start,end,step=<span class="literal">None</span>,dtype=<span class="literal">None</span>)</span><br><span class="line"><span class="comment">#[start,end]以等差数列形式生成数据</span></span><br><span class="line">np.linspace(start,end,num=<span class="number">50</span>)</span><br><span class="line"><span class="comment">#[base^start,base^end]以等比数列形式</span></span><br><span class="line">np.logspace(start,end,num=<span class="number">50</span>,base=<span class="number">10</span>)</span><br><span class="line"><span class="comment">#全是1，默认是float64类型的，可以使用b = a.astype(int32)来转换数据类型</span></span><br><span class="line">np.ones((x,y))</span><br><span class="line"><span class="comment">#全是0</span></span><br><span class="line">np.zeros((x,y))</span><br><span class="line"><span class="comment">#和a的shape相同并且全是0</span></span><br><span class="line">np.zeros_like(a)</span><br><span class="line"><span class="comment">#生成n阶单位矩阵</span></span><br><span class="line">np.eye(n)</span><br><span class="line"><span class="comment">#生成第k对角线为1，其他为0的n阶方阵</span></span><br><span class="line">np.eye(n,k)</span><br><span class="line"><span class="comment">#运用笛卡尔积生成网格点</span></span><br><span class="line">x,y = np.meshgrid(a,b)</span><br><span class="line"><span class="comment">#np.mgrid[起始值:结束值:步长,起始值:结束值:步长,...]</span></span><br><span class="line"><span class="comment">#生成网格,[起始值,结束值)，这种方法常用在机器学习中生成数据</span></span><br><span class="line">x,y = np.mgrid[<span class="number">1</span>:<span class="number">3</span>:<span class="number">1</span>,<span class="number">2</span>:<span class="number">4</span>:<span class="number">0.5</span>] <span class="comment">#前者生成两个数，后者生成四个数，所以x和y都为两行四列</span></span><br><span class="line">x = x.ravel() <span class="comment">#将多维数组变为一维数组，类似于flatten方法</span></span><br><span class="line">y = y.ravel()</span><br><span class="line"><span class="comment">#将两数组对应的值分别配对，类似于普通python中的zip方法</span></span><br><span class="line">grid = np.c_[x,y]</span><br><span class="line"><span class="comment">#运算random库随机生成数据</span></span><br><span class="line">np.random.random((<span class="number">2</span>,<span class="number">4</span>)) <span class="comment">#[0,1)的随机数</span></span><br><span class="line"><span class="comment">#或者先设置随机数种子</span></span><br><span class="line">rdm = np.random.RandomState(seed) <span class="comment">#设置随机数种子</span></span><br><span class="line">a = rdm.rand() <span class="comment">#返回标量</span></span><br><span class="line">b = rdm.rand(<span class="number">2</span>,<span class="number">3</span>) <span class="comment">#2行3列的随机数矩阵</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="条件筛选"><a href="#条件筛选" class="headerlink" title="条件筛选"></a>条件筛选</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>],[<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>]])</span><br><span class="line"><span class="built_in">print</span>(a[a&gt;<span class="number">7</span>]) <span class="comment">#[8,9,10,11,12]</span></span><br><span class="line">condition = a &gt; <span class="number">7</span></span><br><span class="line"><span class="built_in">print</span>(np.where(condition,-<span class="number">1</span>,a)) <span class="comment">#符合condition的替换为-1，不符合的仍然是a中的数</span></span><br><span class="line"><span class="built_in">print</span>(np.where(condition,a,<span class="number">2</span>))</span><br><span class="line">b = -a-<span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(np.where(condition,a,b))</span><br><span class="line"></span><br><span class="line"><span class="comment">#所有小于5的数变成5，所有大于9的数变成9，中间的数保留</span></span><br><span class="line">np.clip(a,<span class="number">5</span>,<span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组的计算"><a href="#数组的计算" class="headerlink" title="数组的计算"></a>数组的计算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>])</span><br><span class="line">b = np.arange(<span class="number">4</span>)</span><br><span class="line">np.transport(a) <span class="comment">#求a的转置矩阵</span></span><br><span class="line">a.T <span class="comment">#同上</span></span><br><span class="line"><span class="comment">#以下分别是加减乘操作</span></span><br><span class="line">c = a+b</span><br><span class="line">c = a-b</span><br><span class="line">c = a*b  <span class="comment">#这个乘法并不是矩阵乘法，而是逐个相乘</span></span><br><span class="line">c = b**<span class="number">2</span></span><br><span class="line">c = <span class="number">10</span>*np.sin(a) <span class="comment">#对a中的每个数求sin然后乘以10</span></span><br><span class="line">c = np.dot(a,b) <span class="comment">#矩阵乘法</span></span><br><span class="line">c = a.dot(b) <span class="comment">#同上</span></span><br><span class="line">c = a @ b <span class="comment">#这时候b会被转置一下</span></span><br><span class="line"><span class="built_in">print</span>(b&lt;<span class="number">3</span>)  <span class="comment">#[True,True,True,False]</span></span><br><span class="line">np.inner(a) <span class="comment">#算矩阵内积</span></span><br><span class="line">np.outer(a) <span class="comment">#算矩阵外积</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="合并与分割"><a href="#合并与分割" class="headerlink" title="合并与分割"></a>合并与分割</h3><p><code>np.vstack(a,b)</code>表示<strong>上下合并</strong>，<code>np.hstack(a,b)</code>表示<strong>左右合并</strong>。</p>
+<p><code>np.vsplit(a,m)</code>表示将a分为m个<strong>行数组</strong>，<code>np.hsplit(a,m)</code>表示将a分为m个<strong>列数组</strong>。</p>
+<p>其实这里的v就是单词<strong>vertical</strong>，也就是<strong>垂直的</strong>意思，而h就是单词<strong>horizon</strong>。</p>
+<h3 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#默认按行打印</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> a:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line">    </span><br><span class="line"><span class="comment">#打印列</span></span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> a.T:</span><br><span class="line">    <span class="built_in">print</span>(col)</span><br><span class="line"></span><br><span class="line"><span class="comment">#将矩阵展开成一个一维数组</span></span><br><span class="line"><span class="built_in">print</span>(a.flatten())</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> a.flat: <span class="comment">#将返回一个一维数组迭代器，打印每一个元素</span></span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<h3 id="线性代数运算"><a href="#线性代数运算" class="headerlink" title="线性代数运算"></a>线性代数运算</h3><p><strong>python</strong>中的线性代数运算主要使用<code>numpy.linalg</code>模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment">#求范数,ord表示范数的种类</span></span><br><span class="line">np.linalg.norm(x,<span class="built_in">ord</span>=<span class="literal">None</span>,axis=<span class="literal">None</span>,keepdims=<span class="literal">False</span>)</span><br><span class="line"><span class="comment">#求逆矩阵</span></span><br><span class="line">np.linalg.inv(a)</span><br><span class="line"><span class="comment">#求矩阵的行列式</span></span><br><span class="line">np.linalg.det(a)</span><br><span class="line"><span class="comment">#求解线性方程组</span></span><br><span class="line">np.linalg.solve(a,b)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><p>在将一个np矩阵赋值给某个变量时，这个变量是一个<strong>指针</strong>，如果再将这个变量赋给另外一个变量，那么这两个变量指向的将是同一块内存空间，可以使用<code>b = a.copy()</code>进行复制。</p>
+<p><code>np.ceil()</code>和<code>np.floor()</code>函数都用于取整，还有一个<code>np.round(a,4)</code>表示对数据进行<strong>四舍五入</strong>，这里是保留四位小数。</p>
+<p>如果想要旋转某个矩阵，可以使用<code>np.rot90(a)</code>这个函数，可以<strong>逆时针</strong>旋转矩阵90度。</p>
+<h2 id="Scipy"><a href="#Scipy" class="headerlink" title="Scipy"></a>Scipy</h2><p><strong>Scipy</strong>是在<strong>Numpy</strong>的基础上增加了众多的数学，科学以及工程计算中常用的函数库。其依赖于<strong>Numpy</strong>，提供了便捷且快速的n维数组操场。其涉及很多模块，功能强大。</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://Lw02kx10.github.io">Wen</a></p><p> <span>Link:  </span><a href="https://lw02kx10.github.io/2023/01/24/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%A1%E7%AE%97/">https://lw02kx10.github.io/2023/01/24/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%A1%E7%AE%97/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2023/01/23/Matplotlib%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" title="Matplotlib数据可视化"><span>NextPost ></span><br><span class="nextTitle">Matplotlib数据可视化</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Numpy"><span class="toc-number">1.</span> <span class="toc-text">Numpy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE"><span class="toc-number">1.1.</span> <span class="toc-text">创建数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%AD%9B%E9%80%89"><span class="toc-number">1.2.</span> <span class="toc-text">条件筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.3.</span> <span class="toc-text">数组的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E4%B8%8E%E5%88%86%E5%89%B2"><span class="toc-number">1.4.</span> <span class="toc-text">合并与分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86"><span class="toc-number">1.5.</span> <span class="toc-text">循环遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">1.6.</span> <span class="toc-text">线性代数运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-number">1.7.</span> <span class="toc-text">杂项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scipy"><span class="toc-number">2.</span> <span class="toc-text">Scipy</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
