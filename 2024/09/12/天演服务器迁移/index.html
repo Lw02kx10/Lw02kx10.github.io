@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Wen"><meta name="renderer" content="webkit"><meta name="copyright" content="Wen"><meta name="keywords" content="Wen's blog"><meta name="description" content=""><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>天演服务器迁移 · Wen's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/cat_favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Wen's blog" type="application/atom+xml">
+</head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/flyCat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Wen</div><div class="profile-signature">Just for coding</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Wen's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">天演服务器迁移</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2024-09-13</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="experience"> experience</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">749</span> | Reading time: <span class="post-count">2</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="天演服务器迁移"><a href="#天演服务器迁移" class="headerlink" title="天演服务器迁移"></a>天演服务器迁移</h1><h2 id="端口访问问题"><a href="#端口访问问题" class="headerlink" title="端口访问问题"></a>端口访问问题</h2><p>服务器的<code>redis</code>部署方式，是使用<code>docker</code>建立一个以<code>redis</code>为基础镜像的容器，并将本机的9000端口映射到容器的6379端口，也就是<code>redis</code>的默认端口。这样在容器中部署好<code>redis</code>之后，外部机器只需要访问服务器的9000端口就可以。</p>
+<p>但是测试发现外部机器无法访问<code>redis</code>，说明该服务器的9000端口无法被外界访问，具体测试方法：<code>**windows</code>下可以使用<code>telnet -h ip -p port</code>的方式，也可以使用<code>ssh  -p 9000 username@ip </code>（<code>ssh</code>的默认端口是22，但是这里指定了具体端口），如果连接超时则说明该端口无法访问。**</p>
+<p>检查服务器防火墙已开放9000端口。问题所在是忽略了服务器非物理服务器而是一个云服务器，云服务器除了需要开放防火墙之外，还需要<strong>开放安全组</strong>。</p>
+<span id="more"></span>
+
+<h2 id="公私钥"><a href="#公私钥" class="headerlink" title="公私钥"></a>公私钥</h2><p>在两台机器相互访问（如<code>ssh</code>访问）的时候，A访问B，则需要A将自己的公钥写入到B的<code>authorized_keys</code>，A可以在<code>~/.ssh/</code>（其实波浪号就是<code>/root</code>目录）目录下查找<code>id_rsa.pub</code>文件，其中内容即为公钥。如果没有则需要<code>ssh-keygen -t rsa</code>来生成。接着可以通过<code>ssh-copy-id username@ip</code>的方式进行直接拷贝，而不需要手动拷贝</p>
+<h2 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">user root;</span><br><span class="line">worker_processes auto;       # 根据CPU核心数量自动调整工作进程数量</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">	worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">	include mime.types;</span><br><span class="line">	default_type application/octet-stream;</span><br><span class="line">	sendfile on;</span><br><span class="line">	keepalive_timeout 65;</span><br><span class="line">	server &#123;    # 虚拟主机，一个http块可以设置多个server块</span><br><span class="line">		listen 80;</span><br><span class="line">		server_name localhost;</span><br><span class="line">		location / &#123;</span><br><span class="line">			root /var/lib/html;</span><br><span class="line">			index index.html</span><br><span class="line">		&#125;</span><br><span class="line">		location /wiki/ &#123;</span><br><span class="line">			add_header Access-Control-Allow-Origin * always;       # 设置跨域</span><br><span class="line">			alias /home/wiki/site/;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="迁移过程"><a href="#迁移过程" class="headerlink" title="迁移过程"></a>迁移过程</h2><p>迁移过程主要就是将原服务器上的各文件拷贝到新服务器上的对应位置，使用的是<code>scp</code>命令，本质基于<code>ssh</code>传输，所以还需要对方持有公钥。</p>
+<p>传输文件（前面的路径是源，后面的路径是目的地）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp /usr/local/test.txt root@47.93.53.159:/usr/local/</span><br></pre></td></tr></table></figure>
+
+<p>传输文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp -r /usr/local/ root@47.93.53.159:/usr/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h2><p><code>webhook</code>出现前，之前的<code>API</code>都是客户端进行请求，服务器响应数据，但是如果有一天客户端想要知道服务器上的某个数据源有没有更新，或者说一旦更新，就将最新的数据发送给客户端，这就需要客户端<strong>不断轮询发请求</strong>，如果发现数据更新则可记为一次有效请求。</p>
+<p>但是<code>webhook</code>可以解决这个问题，它让客户端指定一个<code>URL</code>和<strong>驱动事件</strong>，之后在服务端建立一个服务，每当驱动事件发生时，就向客户端的这个<code>URL</code>发送请求，将更新后的数据发给客户端，所以<code>webhook</code>也被成为“反向API”。</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://Lw02kx10.github.io">Wen</a></p><p> <span>Link:  </span><a href="https://lw02kx10.github.io/2024/09/12/%E5%A4%A9%E6%BC%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/">https://lw02kx10.github.io/2024/09/12/%E5%A4%A9%E6%BC%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="nextSlogan" href="/2024/08/29/Serverless/" title="Serverless"><span>NextPost ></span><br><span class="nextTitle">Serverless</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a target="_blank" rel="noopener" href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A9%E6%BC%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%81%E7%A7%BB"><span class="toc-number">1.</span> <span class="toc-text">天演服务器迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">端口访问问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E7%A7%81%E9%92%A5"><span class="toc-number">1.2.</span> <span class="toc-text">公私钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">Nginx配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E8%BF%87%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">迁移过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Webhook"><span class="toc-number">1.5.</span> <span class="toc-text">Webhook</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
